@@ -1,0 +1,17 @@
+name: New Locale
+description: Request or offer support for a new language/country
+labels: ["locale"]
+body:
+  - type: input
+    id: locale
+    attributes:
+      label: Language / Country
+      placeholder: "e.g. Turkish (TR)"
+    validations:
+      required: true
+  - type: checkboxes
+    id: willing
+    attributes:
+      label: Contribution
+      options:
+        - label: I'm willing to submit a PR for this locale
