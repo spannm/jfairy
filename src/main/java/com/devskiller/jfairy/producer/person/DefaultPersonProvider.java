@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import org.apache.commons.lang3.RandomStringUtils;
-
 import com.devskiller.jfairy.data.DataMaster;
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.DateProducer;
@@ -226,8 +224,11 @@ public class DefaultPersonProvider implements PersonProvider {
 		if (password != null) {
 			return;
 		}
-		// FIXME: Replace this with baseProducer
-		password = RandomStringUtils.randomAlphanumeric(8);
+		StringBuilder passwordPattern = new StringBuilder();
+		for (int i = baseProducer.randomBetween(6, 14); i > 0; i--) {
+			passwordPattern.append(baseProducer.randomElement("?", "#"));
+		}
+		password = baseProducer.bothify(passwordPattern.toString());
 	}
 
 	@Override
