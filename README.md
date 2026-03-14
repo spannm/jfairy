@@ -84,6 +84,22 @@ Fairy brFairy = Fairy.create(Locale.forLanguageTag("br"));
 // Brazilian version
 ```
 
+## Unique values
+
+```java
+UniqueFairy unique = fairy.unique();
+Person p1 = unique.person();  // unique by email
+Person p2 = unique.person();  // different email than p1
+Company c = unique.company(); // unique by name
+```
+
+For custom uniqueness keys:
+
+```java
+UniqueEnforcer<Person> unique = UniqueEnforcer.of(fairy::person, Person::getFullName);
+Person p = unique.next();
+```
+
 ## Thread safety
 
 `Fairy` object should not be used concurrently by multiple threads. It is recommended to create `Fairy` instance for each thread.
