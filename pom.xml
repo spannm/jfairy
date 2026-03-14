@@ -4,7 +4,7 @@
 
 	<groupId>com.devskiller</groupId>
 	<artifactId>jfairy</artifactId>
-	<version>0.6.5-SNAPSHOT</version>
+	<version>${revision}</version>
 
 	<name>jFairy</name>
 	<description>Java fake data generator</description>
@@ -73,6 +73,7 @@
 	</ciManagement>
 
 	<properties>
+		<revision>0.6.5-SNAPSHOT</revision>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -195,6 +196,32 @@
 						<include>**/*Test.java</include>
 					</includes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+				<version>1.7.0</version>
+				<configuration>
+					<outputDirectory>${project.build.directory}</outputDirectory>
+					<updatePomFile>true</updatePomFile>
+					<flattenMode>oss</flattenMode>
+				</configuration>
+				<executions>
+					<execution>
+						<id>flatten</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>flatten</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>flatten-clean</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.eluder.coveralls</groupId>

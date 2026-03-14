@@ -15,4 +15,4 @@ out/
 /bin/
 
 ### Other ###
-
+.flattened-pom.xml
