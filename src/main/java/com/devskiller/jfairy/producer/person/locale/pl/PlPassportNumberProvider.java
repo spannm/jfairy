@@ -1,9 +1,8 @@
 package com.devskiller.jfairy.producer.person.locale.pl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.google.common.collect.Maps;
 
 import com.devskiller.jfairy.producer.person.PassportNumberProvider;
 import com.devskiller.jfairy.producer.util.AlphaNumberSystem;
@@ -36,7 +35,7 @@ public class PlPassportNumberProvider implements PassportNumberProvider {
 
 	private Map<String, Integer> generateLetterDigits() {
 		Integer baseNum = 10;
-		Map<String, Integer> letterDigits = Maps.newHashMap();
+		Map<String, Integer> letterDigits = new HashMap<>();
 		for (String letter : alphabet) {
 			letterDigits.put(letter, baseNum++);
 		}

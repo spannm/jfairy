@@ -3,16 +3,14 @@
  */
 package com.devskiller.jfairy.producer.text;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
 
 import com.devskiller.jfairy.data.DataMaster;
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.util.TextUtils;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Arrays.asList;
 import static org.apache.commons.lang3.StringUtils.capitalize;
 import static org.apache.commons.lang3.StringUtils.endsWith;
@@ -74,7 +72,7 @@ public class TextProducerInternal {
 	}
 
 	private String cleanWords(List<String> words, int count) {
-		List<String> result = newArrayList();
+		List<String> result = new ArrayList<>();
 		for (String part : readRawWords(words, count, 0)) {
 			result.add(uncapitalize(replaceChars(part, "., ", "")));
 		}
@@ -107,11 +105,11 @@ public class TextProducerInternal {
 
 	private String sentence(List<String> words, int wordCount) {
 		String randomWords = rawWords(words, wordCount, WORD_COUNT_PRECISION_IN_SENTENCE);
-		List<String> sentences = newArrayList();
-		for (String sentence : Splitter.on(". ").split(randomWords)) {
+		List<String> sentences = new ArrayList<>();
+		for (String sentence : Arrays.asList(randomWords.split("\\. "))) {
 			sentences.add(capitalize(sentence));
 		}
-		String sentence = capitalize(Joiner.on(". ").join(sentences));
+		String sentence = capitalize(String.join(". ", sentences));
 		sentence = removeEnd(sentence, ",");
 		if (!endsWith(sentence, ".")) {
 			sentence += ".";

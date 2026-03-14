@@ -1,8 +1,7 @@
 package com.devskiller.jfairy.producer.person;
 
 import java.time.LocalDate;
-
-import com.google.common.base.Optional;
+import java.util.Optional;
 
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.company.Company;
@@ -13,8 +12,8 @@ import com.devskiller.jfairy.producer.company.Company;
  */
 public final class PersonProperties {
 
-	private static Optional<Integer> minimumAge = Optional.absent();
-	private static Optional<Integer> maximumAge = Optional.absent();
+	private static Optional<Integer> minimumAge = Optional.empty();
+	private static Optional<Integer> maximumAge = Optional.empty();
 
 	private PersonProperties() {
 	}
@@ -56,12 +55,12 @@ public final class PersonProperties {
 
 	public static PersonProperty minAge(final int minAge) {
 		minimumAge = Optional.of(minAge);
-		return ageBetween(minAge, maximumAge.or(PersonProvider.MAX_AGE));
+		return ageBetween(minAge, maximumAge.orElse(PersonProvider.MAX_AGE));
 	}
 
 	public static PersonProperty maxAge(final int maxAge) {
 		maximumAge = Optional.of(maxAge);
-		return ageBetween(minimumAge.or(PersonProvider.MIN_AGE), maxAge);
+		return ageBetween(minimumAge.orElse(PersonProvider.MIN_AGE), maxAge);
 	}
 
 	public static PersonProperty telephoneFormat(final String telephoneFormat) {

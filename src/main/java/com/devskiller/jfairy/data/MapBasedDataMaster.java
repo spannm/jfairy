@@ -18,8 +18,6 @@ import org.snakeyaml.engine.v2.api.LoadSettings;
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.util.LanguageCode;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
 
 public class MapBasedDataMaster implements DataMaster {
 
@@ -78,13 +76,20 @@ public class MapBasedDataMaster implements DataMaster {
 
 	@SuppressWarnings({"unchecked", "ConstantConditions"}) // checked by checkArgument
 	<T> T getData(String key, Class<T> type) {
-		checkArgument(key != null, "key cannot be null");
-		checkArgument(type != null, "type cannot be null");
+		if (key == null) {
+			throw new IllegalArgumentException("key cannot be null");
+		}
+		if (type == null) {
+			throw new IllegalArgumentException("type cannot be null");
+		}
 
 		Object element = dataSource.get(key);
-		checkArgument(element != null, "No such key: %s", key);
-		checkArgument(type.isAssignableFrom(element.getClass()),
-				"Element under desired key has incorrect type - should be %s", type.getSimpleName());
+		if (element == null) {
+			throw new IllegalArgumentException("No such key: " + key);
+		}
+		if (!type.isAssignableFrom(element.getClass())) {
+			throw new IllegalArgumentException("Element under desired key has incorrect type - should be " + type.getSimpleName());
+		}
 
 		return (T) element;
 	}

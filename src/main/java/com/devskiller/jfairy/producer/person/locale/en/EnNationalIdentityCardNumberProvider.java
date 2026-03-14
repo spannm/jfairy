@@ -1,8 +1,7 @@
 package com.devskiller.jfairy.producer.person.locale.en;
 
+import java.util.Arrays;
 import java.util.List;
-
-import com.google.common.collect.Lists;
 
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.person.NationalIdentityCardNumberProvider;
@@ -23,7 +22,7 @@ public class EnNationalIdentityCardNumberProvider implements NationalIdentityCar
 	private static final int AREA_NUMBER_LENGTH = 3;
 	private static final int GROUP_NUMBER_LENGTH = 2;
 	private static final int GROUP_NUMBER_INDEX = 4;
-	private static final List<Integer> HYPHEN_INDEXES = Lists.newArrayList(3, 6);
+	private static final List<Integer> HYPHEN_INDEXES = Arrays.asList(3, 6);
 	private static final int SERIAL_NUMBER_LENGTH = 4;
 	private static final int SERIAL_NUMBER_INDEX = 7;
 

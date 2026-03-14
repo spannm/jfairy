@@ -1,8 +1,7 @@
 package com.devskiller.jfairy.producer.util;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import com.google.common.collect.Lists;
 
 import static java.lang.String.valueOf;
 
@@ -14,7 +13,7 @@ public final class AlphaNumberSystem {
 	};
 
 	public static List<String> generateAlphabetList() {
-		List<String> alphabetList = Lists.newArrayList();
+		List<String> alphabetList = new ArrayList<>();
 		for (char letter : ALPHABET_CHARS) {
 			alphabetList.add(valueOf(letter));
 		}

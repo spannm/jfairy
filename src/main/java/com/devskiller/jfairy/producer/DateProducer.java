@@ -11,15 +11,11 @@ import java.time.Month;
 import java.time.Period;
 import java.time.ZoneOffset;
 
-import com.google.common.annotations.VisibleForTesting;
-
-import static com.google.common.base.Preconditions.checkArgument;
 import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
 import static java.time.temporal.TemporalAdjusters.lastDayOfYear;
 
 public class DateProducer {
 
-	@VisibleForTesting
 	static final int SECONDS_BEFORE_TO_BE_IN_THE_PAST = 1;
 
 	private final BaseProducer baseProducer;
@@ -32,7 +28,9 @@ public class DateProducer {
 	}
 
 	public LocalDateTime randomDateInThePast(int maxYearsEarlier) {
-		checkArgument(maxYearsEarlier >= 0, "%s has to be >= 0", maxYearsEarlier);
+		if (maxYearsEarlier < 0) {
+			throw new IllegalArgumentException(maxYearsEarlier + " has to be >= 0");
+		}
 		LocalDateTime currentDate = timeProvider.getCurrentTime();
 		LocalDateTime latestDateInThePast = currentDate.minusSeconds(SECONDS_BEFORE_TO_BE_IN_THE_PAST);
 		LocalDateTime maxYearsEarlierDate = currentDate.minusYears(maxYearsEarlier);
@@ -56,7 +54,9 @@ public class DateProducer {
 	}
 
 	public LocalDateTime randomDateBetweenYears(int fromYear, int toYear) {
-		checkArgument(fromYear <= toYear, "%s has to be <= %s", fromYear, toYear);
+		if (fromYear > toYear) {
+			throw new IllegalArgumentException(fromYear + " has to be <= " + toYear);
+		}
 		LocalDateTime fromDate = getDateForFirstDayForGivenYear(fromYear);
 		LocalDateTime toDate = getDateForLastDayForGivenYear(toYear);
 		return randomDateBetweenTwoDates(fromDate, toDate);

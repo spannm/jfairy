@@ -3,7 +3,6 @@ package com.devskiller.jfairy.producer.payment;
 import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
-import com.google.common.base.Strings;
 import org.iban4j.CountryCode;
 import org.iban4j.Iban;
 import org.iban4j.UnsupportedCountryException;
@@ -49,7 +48,7 @@ public class DefaultIBANProvider implements IBANProvider {
 					.bankCode(bankCode)
 					.branchCode(branchCode)
 					.nationalCheckDigit(nationalCheckDigit);
-				if (!Strings.isNullOrEmpty(accountNumber)) {
+				if (accountNumber != null && !accountNumber.isEmpty()) {
 					builder.accountNumber(accountNumber);
 				}
 				Iban iban = builder.buildRandom();
