@@ -1,6 +1,6 @@
 # jFairy by Devskiller
 
-[![Build](https://github.com/SkillPanel/jfairy/actions/workflows/build.yml/badge.svg)](https://github.com/SkillPanel/jfairy/actions/workflows/build.yml) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.devskiller/jfairy/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.devskiller/jfairy) [![Javadocs](http://www.javadoc.io/badge/com.devskiller/jfairy.svg)](http://www.javadoc.io/doc/com.devskiller/jfairy)
+[![Build](https://github.com/SkillPanel/jfairy/actions/workflows/build.yml/badge.svg)](https://github.com/SkillPanel/jfairy/actions/workflows/build.yml) [![Maven Central](https://img.shields.io/maven-central/v/com.devskiller/jfairy)](https://central.sonatype.com/artifact/com.devskiller/jfairy) [![Javadocs](https://javadoc.io/badge2/com.devskiller/jfairy/javadoc.svg)](https://javadoc.io/doc/com.devskiller/jfairy)
 
 Java fake data generator. Based on Wikipedia:
 
