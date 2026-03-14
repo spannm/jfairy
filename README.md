@@ -6,9 +6,15 @@ Java fake data generator. Based on Wikipedia:
 
 > Fairyland, in folklore, is the fabulous land or abode of fairies or fays.
 
-## Try jFairy online!
+## Installation
 
-https://devskiller.com/datafairy/
+```xml
+<dependency>
+    <groupId>com.devskiller</groupId>
+    <artifactId>jfairy</artifactId>
+    <version>0.7.1</version>
+</dependency>
+```
 
 ## Usage
 
@@ -18,17 +24,21 @@ Creating simple objects:
 Fairy fairy = Fairy.create();
 Person person = fairy.person();
 
-System.out.println(person.getFirstName());            
-// Chloe Barker
-System.out.println(person.getEmail());               
+System.out.println(person.getFirstName());
+// Chloe
+System.out.println(person.getLastName());
+// Barker
+System.out.println(person.getEmail());
 // barker@yahoo.com
-System.out.println(person.getTelephoneNumber());     
+System.out.println(person.getTelephoneNumber());
 // 690-950-802
+System.out.println(person.getJobTitle());
+// Software Developer
 
 Person adultMale = fairy.person(PersonProperties.male(), PersonProperties.minAge(21));
-System.out.println(adultMale.isMale());           
+System.out.println(adultMale.isMale());
 // true
-System.out.println(adultMale.getDateOfBirth());      
+System.out.println(adultMale.getDateOfBirth());
 // at least 21 years earlier
 ```
 
@@ -37,25 +47,41 @@ Creating related objects:
 ```java
 Fairy fairy = Fairy.create();
 Company company = fairy.company();
-System.out.println(company.getName());          
+System.out.println(company.getName());
 // Robuten Associates
-System.out.println(company.getUrl());           
+System.out.println(company.getUrl());
 // http://www.robuteniaassociates.com
 
 Person salesman = fairy.person(PersonProperties.withCompany(company));
-System.out.println(salesman.getFullName());     
+System.out.println(salesman.getFullName());
 // Juan Camacho
-System.out.println(salesman.getCompanyEmail()); 
+System.out.println(salesman.getCompanyEmail());
 // juan.camacho@robuteniaassociates.com
 ```
 
-Locale support:
+## Supported locales
+
+| Locale | Language tag |
+|--------|-------------|
+| English (default) | `en` |
+| Polish | `pl` |
+| German | `de` |
+| French | `fr` |
+| Spanish | `es` |
+| Swedish | `sv` |
+| Chinese | `zh` |
+| Georgian | `ka` |
+| Italian | `it` |
+| Brazilian Portuguese | `br` |
+| Slovak | `sk` |
 
 ```java
-Fairy enFairy = Fairy.create();                               
+Fairy enFairy = Fairy.create();
 // Locale.ENGLISH is default
-Fairy plFairy = Fairy.create(Locale.forLanguageTag("pl"));    
+Fairy plFairy = Fairy.create(Locale.forLanguageTag("pl"));
 // Polish version
+Fairy brFairy = Fairy.create(Locale.forLanguageTag("br"));
+// Brazilian version
 ```
 
 ## Thread safety
@@ -66,11 +92,10 @@ Some methods are not thread-safe when multiple threads share the same `Fairy` ob
 
 ## Other samples
 
-Look into [code samples](https://github.com/Devskiller/jfairy/tree/master/src/test/groovy/snippets/)
+Look into [code samples](https://github.com/SkillPanel/jfairy/tree/master/src/test/groovy/snippets/)
 
 ## Building
 
 This project can be built using maven command:
 
     ./mvnw install
-
