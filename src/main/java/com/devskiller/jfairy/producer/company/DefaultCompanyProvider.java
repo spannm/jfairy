@@ -2,7 +2,6 @@ package com.devskiller.jfairy.producer.company;
 
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.text.StringEscapeUtils;
 
 import com.devskiller.jfairy.data.DataMaster;
 import com.devskiller.jfairy.producer.BaseProducer;
@@ -73,7 +72,7 @@ public class DefaultCompanyProvider implements CompanyProvider {
 
 		String host = TextUtils.stripAccents(StringUtils.strip(StringUtils.deleteWhitespace(name.toLowerCase()), ".").replace("/", ""));
 		int len1 = host.length();
-		host = StringEscapeUtils.escapeJava(host).replaceAll("\\\\u", "");
+		host = TextUtils.escapeNonAscii(host).replaceAll("\\\\u", "");
 		int len2 = host.length();
 		if (len2 > len1 && len2 > 10)
 			host = host.substring(0, 10);

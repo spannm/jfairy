@@ -4,40 +4,39 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import org.apache.commons.math3.random.JDKRandomGenerator;
-import org.apache.commons.math3.random.RandomDataGenerator;
-
 public class RandomGenerator {
 
-	private final RandomDataGenerator randomDataGenerator;
+	private final Random random;
 
 	public RandomGenerator() {
-		this.randomDataGenerator = new RandomDataGenerator(new JDKRandomGenerator());
+		this.random = new Random();
 	}
 
 	public RandomGenerator(int seed) {
-		this.randomDataGenerator = new RandomDataGenerator(new JDKRandomGenerator(seed));
+		this.random = new Random(seed);
 	}
 
 	public boolean nextBoolean() {
-		return randomDataGenerator.getRandomGenerator().nextBoolean();
+		return random.nextBoolean();
 	}
 
 	public <T> List<T> shuffle(List<T> elements) {
-		Collections.shuffle(elements, (Random) randomDataGenerator.getRandomGenerator());
+		Collections.shuffle(elements, random);
 		return elements;
 	}
 
 	public int nextInt(int min, int max) {
 		if (min == max) return min;
-		return randomDataGenerator.nextInt(min, max);
+		return random.nextInt(min, max + 1);
 	}
 
-	public long nextDouble(long min, long max) {
-		return randomDataGenerator.nextLong(min, max);
+	public long nextLong(long min, long max) {
+		if (min == max) return min;
+		return random.nextLong(min, max + 1);
 	}
 
 	public double nextDouble(double min, double max) {
-		return randomDataGenerator.nextUniform(min, max);
+		if (min == max) return min;
+		return random.nextDouble(min, max);
 	}
 }
