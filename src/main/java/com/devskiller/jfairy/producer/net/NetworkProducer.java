@@ -28,15 +28,11 @@ public class NetworkProducer {
 		String mergedIP = ipAddress().replaceAll("\\.", "");
 		char[] domainChars = mergedIP.toCharArray();
 		for (int i = 0; i < domainChars.length; i++) {
-			char c = domainChars[i];
-			domainChars[i] = (char) (c + 97);
+			domainChars[i] = (char) (Character.getNumericValue(domainChars[i]) + 'a');
 		}
 
 		String domain = String.valueOf(domainChars);
-		if (isHttps) {
-			return "https://" + domain + ".com";
-		} else {
-			return "http://" + domain + ".com";
-		}
+		String protocol = isHttps ? "https" : "http";
+		return protocol + "://" + domain + ".com";
 	}
 }
