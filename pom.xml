@@ -68,8 +68,8 @@
 	</issueManagement>
 
 	<ciManagement>
-		<system>Travis</system>
-		<url>https://travis-ci.org/Devskiller/jfairy</url>
+		<system>GitHub Actions</system>
+		<url>https://github.com/SkillPanel/jfairy/actions</url>
 	</ciManagement>
 
 	<properties>
