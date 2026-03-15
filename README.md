@@ -12,7 +12,7 @@ Java fake data generator. Based on Wikipedia:
 <dependency>
     <groupId>com.devskiller</groupId>
     <artifactId>jfairy</artifactId>
-    <version>0.7.2</version>
+    <version>0.8.1</version>
 </dependency>
 ```
 
