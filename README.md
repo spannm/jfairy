@@ -110,6 +110,10 @@ Some methods are not thread-safe when multiple threads share the same `Fairy` ob
 
 Look into [code samples](https://github.com/SkillPanel/jfairy/tree/master/src/test/groovy/snippets/)
 
+## JUnit 5 Extension
+
+If you use JUnit 5, check out [jfairy-junit-extension](https://github.com/SkillPanel/jfairy-junit-extension) — a JUnit 5 extension that allows injecting jFairy-generated objects directly into test method parameters.
+
 ## Building
 
 This project can be built using maven command:
