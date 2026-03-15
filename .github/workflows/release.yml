@@ -31,7 +31,7 @@ jobs:
 
       - name: Build and deploy to Maven Central
         run: |
-          ./mvnw -B clean deploy -P release \
+          mvn -B clean deploy -P release \
             -Drevision=${{ steps.get_version.outputs.VERSION }} \
             -DskipTests
         env:
