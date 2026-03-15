@@ -444,6 +444,22 @@
 
 	<profiles>
 		<profile>
+			<id>fast</id>
+			<!-- profile to skip time-consuming steps -->
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<!-- skip _compiling_ the tests -->
+				<maven.test.skip>true</maven.test.skip>
+				<!-- skip execution of tests -->
+				<skipTests>true</skipTests>
+
+				<maven.javadoc.skip>true</maven.javadoc.skip>
+			</properties>
+		</profile>
+
+		<profile>
 			<id>release</id>
 			<build>
 				<plugins>
