@@ -264,18 +264,9 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>gitflow-maven-plugin</artifactId>
-				<version>1.21.0</version>
+				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
-					<versionProperty>revision</versionProperty>
-					<skipUpdateVersion>true</skipUpdateVersion>
-					<pushRemote>false</pushRemote>
-					<gitFlowConfig>
-						<productionBranch>master</productionBranch>
-						<developmentBranch>master</developmentBranch>
-						<versionTagPrefix>v</versionTagPrefix>
-					</gitFlowConfig>
-					<postReleaseGoals>clean deploy -Prelease -DskipTests</postReleaseGoals>
+					<releaseProfiles>release</releaseProfiles>
 				</configuration>
 			</plugin>
 			<plugin>
