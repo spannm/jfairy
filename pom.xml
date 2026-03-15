@@ -269,32 +269,6 @@
 					<releaseProfiles>release</releaseProfiles>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.sonatype.central</groupId>
-				<artifactId>central-publishing-maven-plugin</artifactId>
-				<version>0.10.0</version>
-				<extensions>true</extensions>
-				<executions>
-					<execution>
-						<id>central-publish</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>publish</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<publishingServerId>central</publishingServerId>
-					<autoPublish>false</autoPublish>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 
@@ -345,6 +319,25 @@
 								</goals>
 							</execution>
 						</executions>
+					</plugin>
+				<plugin>
+						<groupId>org.sonatype.central</groupId>
+						<artifactId>central-publishing-maven-plugin</artifactId>
+						<version>0.10.0</version>
+						<extensions>true</extensions>
+						<executions>
+							<execution>
+								<id>central-publish</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>publish</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<publishingServerId>central</publishingServerId>
+							<autoPublish>false</autoPublish>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
