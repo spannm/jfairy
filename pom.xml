@@ -86,15 +86,15 @@
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss z</maven.build.timestamp.format>
 
 		<!-- Dependency versions (ordered by usage) -->
-		<dep.snakeyaml-engine.version>2.3</dep.snakeyaml-engine.version>
+		<dep.snakeyaml-engine.version>3.0.1</dep.snakeyaml-engine.version>
 		<dep.jspecify.version>1.0.0</dep.jspecify.version>
 		<dep.slf4j.version>2.0.17</dep.slf4j.version>
-		<dep.iban4j.version>3.2.3-RELEASE</dep.iban4j.version>
+		<dep.iban4j.version>3.2.13-RELEASE</dep.iban4j.version>
 		<dep.commons-validator.version>1.10.1</dep.commons-validator.version>
 		<dep.spock.version>2.4-groovy-4.0</dep.spock.version>
-		<dep.groovy.version>4.0.24</dep.groovy.version>
-		<dep.byte-buddy.version>1.15.11</dep.byte-buddy.version>
-		<dep.objenesis.version>3.4</dep.objenesis.version>
+		<dep.groovy.version>4.0.30</dep.groovy.version>
+		<dep.byte-buddy.version>1.18.7</dep.byte-buddy.version>
+		<dep.objenesis.version>3.5</dep.objenesis.version>
 		<dep.junit-jupiter.version>5.14.3</dep.junit-jupiter.version>
 
 		<!-- Plugin versions (ordered alphabetically) -->
