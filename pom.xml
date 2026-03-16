@@ -90,7 +90,7 @@
 		<dep.jspecify.version>1.0.0</dep.jspecify.version>
 		<dep.slf4j.version>2.0.17</dep.slf4j.version>
 		<dep.iban4j.version>3.2.3-RELEASE</dep.iban4j.version>
-		<dep.commons-validator.version>1.7</dep.commons-validator.version>
+		<dep.commons-validator.version>1.10.1</dep.commons-validator.version>
 		<dep.spock.version>2.4-groovy-4.0</dep.spock.version>
 		<dep.groovy.version>4.0.24</dep.groovy.version>
 		<dep.byte-buddy.version>1.15.11</dep.byte-buddy.version>
@@ -145,6 +145,12 @@
 			<artifactId>commons-validator</artifactId>
 			<version>${dep.commons-validator.version}</version>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
