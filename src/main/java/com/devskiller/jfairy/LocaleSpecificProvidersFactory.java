@@ -71,7 +71,7 @@ final class LocaleSpecificProvidersFactory {
 	                                                        DateProducer dateProducer) {
 		LanguageCode code;
 		try {
-			code = LanguageCode.valueOf(locale.getLanguage().toUpperCase());
+			code = LanguageCode.valueOf(locale.getLanguage().toUpperCase(Locale.ROOT));
 		} catch (IllegalArgumentException ex) {
 			LOG.warn("Unknown locale {}", locale);
 			code = LanguageCode.EN;
@@ -79,16 +79,16 @@ final class LocaleSpecificProvidersFactory {
 
 		return switch (code) {
 			case PL -> createPlProviders(dataMaster, baseProducer, dateProducer);
-			case EN -> createEnProviders(dataMaster, baseProducer, dateProducer);
-			case ES -> createEsProviders(dataMaster, baseProducer, dateProducer);
-			case FR -> createFrProviders(dataMaster, baseProducer, dateProducer);
-			case IT -> createItProviders(dataMaster, baseProducer, dateProducer);
+			case EN -> createEnProviders(dataMaster, baseProducer);
+			case ES -> createEsProviders(dataMaster, baseProducer);
+			case FR -> createFrProviders(dataMaster, baseProducer);
+			case IT -> createItProviders(dataMaster, baseProducer);
 			case SK -> createSkProviders(dataMaster, baseProducer, dateProducer);
 			case SV -> createSvProviders(dataMaster, baseProducer, dateProducer);
-			case ZH -> createZhProviders(dataMaster, baseProducer, dateProducer);
-			case DE -> createDeProviders(dataMaster, baseProducer, dateProducer);
-			case KA -> createKaProviders(dataMaster, baseProducer, dateProducer);
-			case BR -> createBrProviders(dataMaster, baseProducer, dateProducer);
+			case ZH -> createZhProviders(dataMaster, baseProducer);
+			case DE -> createDeProviders(dataMaster, baseProducer);
+			case KA -> createKaProviders(dataMaster, baseProducer);
+			case BR -> createBrProviders(dataMaster, baseProducer);
 		};
 	}
 
@@ -107,9 +107,8 @@ final class LocaleSpecificProvidersFactory {
 	private static LocaleSpecificProviders createSkProviders(DataMaster dataMaster,
 	                                                         BaseProducer baseProducer,
 	                                                         DateProducer dateProducer) {
-		NationalIdentificationNumberFactory nationalIdFactory = new SkNationalIdentificationNumberFactory(baseProducer, dateProducer);
 		return new LocaleSpecificProviders(
-				nationalIdFactory,
+				new SkNationalIdentificationNumberFactory(baseProducer, dateProducer),
 				new SkNationalIdentityCardNumberProvider(dateProducer, baseProducer),
 				new SkVATIdentificationNumberProvider(baseProducer),
 				new SkAddressProvider(dataMaster, baseProducer),
@@ -118,8 +117,7 @@ final class LocaleSpecificProvidersFactory {
 	}
 
 	private static LocaleSpecificProviders createEnProviders(DataMaster dataMaster,
-	                                                         BaseProducer baseProducer,
-	                                                         DateProducer dateProducer) {
+	                                                         BaseProducer baseProducer) {
 		return new LocaleSpecificProviders(
 				new NoNationalIdentificationNumberFactory(),
 				new EnNationalIdentityCardNumberProvider(baseProducer),
@@ -134,12 +132,10 @@ final class LocaleSpecificProvidersFactory {
 	 *
 	 * @param dataMaster   data source
 	 * @param baseProducer base producer
-	 * @param dateProducer date producer
 	 * @return French specific providers
 	 */
 	private static LocaleSpecificProviders createFrProviders(DataMaster dataMaster,
-	                                                         BaseProducer baseProducer,
-	                                                         DateProducer dateProducer) {
+	                                                         BaseProducer baseProducer) {
 		return new LocaleSpecificProviders(
 				new NoNationalIdentificationNumberFactory(),
 				new FrNationalIdentityCardNumberProvider(baseProducer),
@@ -156,12 +152,10 @@ final class LocaleSpecificProvidersFactory {
 	 *
 	 * @param dataMaster   data source
 	 * @param baseProducer base producer
-	 * @param dateProducer date producer
 	 * @return Italian specific providers
 	 */
 	private static LocaleSpecificProviders createItProviders(DataMaster dataMaster,
-															 BaseProducer baseProducer,
-															 DateProducer dateProducer) {
+															 BaseProducer baseProducer) {
 		return new LocaleSpecificProviders(
 			new NoNationalIdentificationNumberFactory(),
 			new EnNationalIdentityCardNumberProvider(baseProducer),
@@ -172,8 +166,7 @@ final class LocaleSpecificProvidersFactory {
 	}
 
 	private static LocaleSpecificProviders createEsProviders(DataMaster dataMaster,
-	                                                         BaseProducer baseProducer,
-	                                                         DateProducer dateProducer) {
+	                                                         BaseProducer baseProducer) {
 		return new LocaleSpecificProviders(
 				new NoNationalIdentificationNumberFactory(),
 				new EsNationalIdentityCardNumberProvider(baseProducer),
@@ -197,8 +190,7 @@ final class LocaleSpecificProvidersFactory {
 	}
 
 	private static LocaleSpecificProviders createZhProviders(DataMaster dataMaster,
-	                                                         BaseProducer baseProducer,
-	                                                         DateProducer dateProducer) {
+	                                                         BaseProducer baseProducer) {
 		return new LocaleSpecificProviders(
 				new NoNationalIdentificationNumberFactory(),
 				new ZhNationalIdentityCardNumberProvider(baseProducer),
@@ -209,8 +201,7 @@ final class LocaleSpecificProvidersFactory {
 	}
 
 	private static LocaleSpecificProviders createDeProviders(DataMaster dataMaster,
-	                                                         BaseProducer baseProducer,
-	                                                         DateProducer dateProducer) {
+	                                                         BaseProducer baseProducer) {
 		return new LocaleSpecificProviders(
 				new NoNationalIdentificationNumberFactory(),
 				new DeNationalIdentityCardNumberProvider(baseProducer),
@@ -221,8 +212,7 @@ final class LocaleSpecificProvidersFactory {
 	}
 
 	private static LocaleSpecificProviders createKaProviders(DataMaster dataMaster,
-	                                                         BaseProducer baseProducer,
-	                                                         DateProducer dateProducer) {
+	                                                         BaseProducer baseProducer) {
 		return new LocaleSpecificProviders(
 				new NoNationalIdentificationNumberFactory(),
 				new KaNationalIdentityCardNumberProvider(baseProducer),
@@ -233,8 +223,7 @@ final class LocaleSpecificProvidersFactory {
 	}
 
 	private static LocaleSpecificProviders createBrProviders(DataMaster dataMaster,
-	                                                         BaseProducer baseProducer,
-	                                                         DateProducer dateProducer) {
+	                                                         BaseProducer baseProducer) {
 		return new LocaleSpecificProviders(
 				new NoNationalIdentificationNumberFactory(),
 				new BrNationalIdentityCardNumberProvider(baseProducer),

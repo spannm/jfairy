@@ -192,13 +192,23 @@ public class BaseProducer {
 		return letterify(numerify(string));
 	}
 
+	/**
+	 * Replaces occurrence of a specific symbol with a random character within the given range.
+	 *
+	 * @param string the template string containing symbols to be replaced
+	 * @param symbol the character to look for in the template
+	 * @param from the lower bound (inclusive) of the random character range
+	 * @param to the upper bound (inclusive) of the random character range
+	 * @return a new string with all symbols replaced by random characters
+	 */
 	private String replaceSymbolWithCharsFromTo(String string, char symbol, char from, char to) {
 		StringBuilder result = new StringBuilder();
-		for (char aChar : string.toCharArray()) {
-			if (aChar == symbol) {
+		for (int i = 0; i < string.length(); i++) {
+			char c = string.charAt(i);
+			if (c == symbol) {
 				result.append(randomBetween(from, to));
 			} else {
-				result.append(aChar);
+				result.append(c);
 			}
 		}
 		return result.toString();

@@ -2,6 +2,7 @@ package com.devskiller.jfairy.producer.util;
 
 import java.text.Normalizer;
 import java.util.List;
+import java.util.Locale;
 
 import org.jspecify.annotations.Nullable;
 
@@ -69,7 +70,7 @@ public final class StringUtils {
 	 * @return lower-case version of {@code s}
 	 */
 	public static String lowerCase(String s) {
-		return s.toLowerCase();
+		return s.toLowerCase(Locale.ROOT);
 	}
 
 	/**
@@ -362,15 +363,13 @@ public final class StringUtils {
 	// -------------------------------------------------------------------------
 
 	/**
-	 * Escapes all non-ASCII characters in {@code input} as Unicode escape
-	 * sequences of the form {@code &#92;uXXXX}.
-	 *
-	 * <p>ASCII characters (codepoints 0x00–0x7F) are passed through unchanged.
+	 * Escapes all non-ASCII characters in {@code input} as Unicode escape sequences.
+	 * <p>
+	 * ASCII characters (codepoints 0x00–0x7F) are passed through unchanged.
 	 * Returns {@code null} when {@code input} is {@code null}.
 	 *
 	 * @param input the string to escape; may be {@code null}
-	 * @return the escaped string, or {@code null} if {@code input} is
-	 *         {@code null}
+	 * @return the escaped string, or {@code null} if {@code input} is {@code null}
 	 */
 	public static @Nullable String escapeNonAscii(@Nullable String input) {
 		if (input == null) {

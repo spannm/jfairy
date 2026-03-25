@@ -4,9 +4,6 @@ import com.devskiller.jfairy.data.DataMaster;
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.person.AbstractAddressProvider;
 
-/**
- * @author Roland Weisleder
- */
 public class DeAddressProvider extends AbstractAddressProvider {
 
 	public DeAddressProvider(DataMaster dataMaster, BaseProducer baseProducer) {

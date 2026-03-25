@@ -4,11 +4,7 @@ import java.util.List;
 
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.person.NationalIdentityCardNumberProvider;
-
-import static java.lang.String.valueOf;
-import static java.lang.System.arraycopy;
-
-import static com.devskiller.jfairy.producer.util.StringUtils.leftPad;
+import com.devskiller.jfairy.producer.util.StringUtils;
 
 /**
  * English National Identity Card Number (known as Social Security Number)
@@ -44,7 +40,7 @@ public class EnNationalIdentityCardNumberProvider implements NationalIdentityCar
 
 		fillSerialNumber(ssn);
 
-		return valueOf(ssn);
+		return String.valueOf(ssn);
 	}
 
 	private void fillHyphens(char[] ssn) {
@@ -56,22 +52,22 @@ public class EnNationalIdentityCardNumberProvider implements NationalIdentityCar
 	private void fillAreaNumber(char[] ssn) {
 		String number;
 		do {
-			number = valueOf(baseProducer.randomBetween(1, 899));
+			number = String.valueOf(baseProducer.randomBetween(1, 899));
 		} while ("666".equals(number));
-		char[] digits = leftPad(number, AREA_NUMBER_LENGTH, "0").toCharArray();
-		arraycopy(digits, 0, ssn, 0, digits.length);
+		char[] digits = StringUtils.leftPad(number, AREA_NUMBER_LENGTH, "0").toCharArray();
+		System.arraycopy(digits, 0, ssn, 0, digits.length);
 	}
 
 	private void fillGroupNumber(char[] ssn) {
-		String number = valueOf(baseProducer.randomBetween(1, 99));
-		char[] digits = leftPad(number, GROUP_NUMBER_LENGTH, "0").toCharArray();
-		arraycopy(digits, 0, ssn, GROUP_NUMBER_INDEX, digits.length);
+		String number = String.valueOf(baseProducer.randomBetween(1, 99));
+		char[] digits = StringUtils.leftPad(number, GROUP_NUMBER_LENGTH, "0").toCharArray();
+		System.arraycopy(digits, 0, ssn, GROUP_NUMBER_INDEX, digits.length);
 	}
 
 	private void fillSerialNumber(char[] ssn) {
-		String number = valueOf(baseProducer.randomBetween(1, 9999));
-		char[] digits = leftPad(number, SERIAL_NUMBER_LENGTH, "0").toCharArray();
-		arraycopy(digits, 0, ssn, SERIAL_NUMBER_INDEX, digits.length);
+		String number = String.valueOf(baseProducer.randomBetween(1, 9999));
+		char[] digits = StringUtils.leftPad(number, SERIAL_NUMBER_LENGTH, "0").toCharArray();
+		System.arraycopy(digits, 0, ssn, SERIAL_NUMBER_INDEX, digits.length);
 	}
 
 }

@@ -20,28 +20,35 @@ public abstract class AbstractAddress implements Address {
 		this.apartmentNumber = apartmentNumber;
 	}
 
+	@Override
 	public String getStreet() {
 		return street;
 	}
 
+	@Override
 	public String getStreetNumber() {
 		return streetNumber;
 	}
 
+	@Override
 	public String getApartmentNumber() {
 		return apartmentNumber;
 	}
 
+	@Override
 	public String getPostalCode() {
 		return postalCode;
 	}
 
+	@Override
 	public String getCity() {
 		return city;
 	}
 
+	@Override
 	public abstract String getAddressLine1();
 
+	@Override
 	public abstract String getAddressLine2();
 
 	@Override

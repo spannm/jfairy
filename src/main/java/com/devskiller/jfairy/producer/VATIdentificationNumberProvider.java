@@ -13,5 +13,6 @@ import java.util.function.Supplier;
  */
 public interface VATIdentificationNumberProvider extends Supplier<String> {
 
+	@Override
 	String get();
 }

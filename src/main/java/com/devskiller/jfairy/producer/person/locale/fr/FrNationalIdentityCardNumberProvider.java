@@ -1,6 +1,7 @@
 package com.devskiller.jfairy.producer.person.locale.fr;
 
 import java.time.Year;
+import java.time.ZoneId;
 
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.person.NationalIdentityCardNumberProvider;
@@ -36,7 +37,7 @@ public class FrNationalIdentityCardNumberProvider implements NationalIdentityCar
 		int dept = baseProducer.randomBetween(1, 95);
 
 		// year (last two digits, from 2021 to current year)
-		int currentYear = Year.now().getValue() % 100;
+		int currentYear = Year.now(ZoneId.systemDefault()).getValue() % 100;
 		int year = baseProducer.randomBetween(21, currentYear);
 
 		// month (01-12)

@@ -4,6 +4,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
+ * Representation of a faked credit card with its essential security and expiry data.
+ * <p>
+ * This class holds information about the card vendor, number, CVV code,
+ * and the expiration date. It is designed as an immutable object.
+ *
  * @author jkubrynski@gmail.com
  * @since 2013-11-17
  */

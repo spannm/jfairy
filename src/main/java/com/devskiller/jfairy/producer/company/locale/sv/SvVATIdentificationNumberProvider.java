@@ -1,18 +1,17 @@
 package com.devskiller.jfairy.producer.company.locale.sv;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.DateProducer;
 import com.devskiller.jfairy.producer.VATIdentificationNumberProvider;
 import com.devskiller.jfairy.producer.person.NationalIdentificationNumberFactory;
 import com.devskiller.jfairy.producer.person.NationalIdentificationNumberProvider;
-
-import static java.lang.String.valueOf;
+import com.devskiller.jfairy.producer.util.StringUtils;
 
 import static com.devskiller.jfairy.producer.person.NationalIdentificationNumberProperties.dateOfBirth;
 import static com.devskiller.jfairy.producer.person.locale.sv.SvNationalIdentificationNumberProvider.calculateChecksum;
-import static com.devskiller.jfairy.producer.util.StringUtils.leftPad;
 
 /**
  * Swedish VAT Identification Number (known as Momsnummer in Sweden)
@@ -44,7 +43,7 @@ public class SvVATIdentificationNumberProvider implements VATIdentificationNumbe
 		}
 
 		int randomGroupNumber = baseProducer.randomElement(GroupNumber.class).getValue();
-		String randomNumericBetween20And99 = leftPad(valueOf(baseProducer.randomBetween(20, 99)), 2, "0");
+		String randomNumericBetween20And99 = StringUtils.leftPad(String.valueOf(baseProducer.randomBetween(20, 99)), 2, "0");
 		String organizationNumberWithoutChecksum = randomGroupNumber + baseProducer.randomNumeric(1)
 			+ randomNumericBetween20And99 + baseProducer.randomNumeric(5);
 		String organizationNumber = organizationNumberWithoutChecksum + calculateChecksum(organizationNumberWithoutChecksum);
@@ -53,8 +52,9 @@ public class SvVATIdentificationNumberProvider implements VATIdentificationNumbe
 	}
 
 	private String generateVatNumberForSoleTrader() {
-		LocalDate lowerAgeLimit = LocalDate.now().minusYears(SOLE_TRADER_LOWER_AGE_LIMIT);
-		LocalDate upperAgeLimit = LocalDate.now().minusYears(SOLE_TRADER_UPPER_AGE_LIMIT);
+		LocalDate now = LocalDate.now(ZoneId.systemDefault());
+		LocalDate lowerAgeLimit = now.minusYears(SOLE_TRADER_LOWER_AGE_LIMIT);
+		LocalDate upperAgeLimit = now.minusYears(SOLE_TRADER_UPPER_AGE_LIMIT);
 		LocalDate dateOfBirth = dateProducer.randomDateBetweenTwoDates(lowerAgeLimit, upperAgeLimit);
 		NationalIdentificationNumberProvider nationalIdentificationNumberProvider =
 			nationalIdentificationNumberFactory.produceNationalIdentificationNumberProvider(
@@ -63,10 +63,6 @@ public class SvVATIdentificationNumberProvider implements VATIdentificationNumbe
 		return SE + personalIdentityNumber.replace("-", "") + "01";
 	}
 
-	/**
-	 * @param vatIdentificationNumber Swedish VAT Identification Number
-	 * @return vatIdentificationNumber validity
-	 */
 	public static boolean isValid(String vatIdentificationNumber) {
 		int length = vatIdentificationNumber.length();
 		if (length != VAT_IDENTIFICATION_NUMBER_LENGTH) {
@@ -100,7 +96,7 @@ public class SvVATIdentificationNumberProvider implements VATIdentificationNumbe
 			this.value = value;
 		}
 
-		public int getValue() {
+		int getValue() {
 			return value;
 		}
 	}

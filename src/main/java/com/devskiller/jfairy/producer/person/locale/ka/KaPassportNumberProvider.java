@@ -17,7 +17,7 @@ public class KaPassportNumberProvider implements PassportNumberProvider {
 	}
 
 	// A system of Ministry of Inferior Office codes is not known at the moment.
-	private String getStateOfficeCode(String district) {
+	private String getStateOfficeCode() {
 		return baseProducer.numerify("###");
 	}
 
@@ -28,6 +28,6 @@ public class KaPassportNumberProvider implements PassportNumberProvider {
 	@Override
 	public String get() {
 		String districtCode = getDistrictCode();
-		return districtCode + getStateOfficeCode(districtCode) + getNationalPersonalIdentificationNumber();
+		return districtCode + getStateOfficeCode() + getNationalPersonalIdentificationNumber();
 	}
 }

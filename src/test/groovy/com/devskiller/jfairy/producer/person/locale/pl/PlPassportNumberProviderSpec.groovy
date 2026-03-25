@@ -39,7 +39,7 @@ class PlPassportNumberProviderSpec extends Specification {
 
 	def "should generate number with correct checksum"() {
 		expect:
-			PlPassportNumberProvider.passportCheckSumIsValid(passportNumber)
+			PlPassportNumberProvider.isPassportCheckSumValid(passportNumber)
 	}
 
 

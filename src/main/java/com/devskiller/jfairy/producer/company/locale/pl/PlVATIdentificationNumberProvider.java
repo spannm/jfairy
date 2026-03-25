@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.VATIdentificationNumberProvider;
-
-import static java.lang.String.valueOf;
-
-import static com.devskiller.jfairy.producer.util.StringUtils.leftPad;
+import com.devskiller.jfairy.producer.util.StringUtils;
 
 /**
  * Polish VAT Identification Number (known as NIP Numer Identyfikacji Podatkowej in Poland)
@@ -95,9 +92,9 @@ public class PlVATIdentificationNumberProvider implements VATIdentificationNumbe
 	}
 
 	private String generateNumber() {
-		String prefix = valueOf(CODES[baseProducer.randomInt(CODES.length - 1)]);
+		String prefix = String.valueOf(CODES[baseProducer.randomInt(CODES.length - 1)]);
 
-		String number = leftPad(valueOf(baseProducer.randomInt(MAX_SERIAL_NUMBER)), SERIAL_NUMBER_SIZE, "0");
+		String number = StringUtils.leftPad(String.valueOf(baseProducer.randomInt(MAX_SERIAL_NUMBER)), SERIAL_NUMBER_SIZE, "0");
 
 		return prefix + number;
 	}

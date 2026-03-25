@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.snakeyaml.engine.v2.api.Load;
@@ -42,6 +43,7 @@ public class MapBasedDataMaster implements DataMaster {
 		return getData(key, List.class);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public <T> T getValuesOfType(String dataKey, final String type, final Class<T> resultClass) {
 		Map<String, List<T>> data = getData(dataKey, Map.class);
@@ -70,7 +72,7 @@ public class MapBasedDataMaster implements DataMaster {
 
 	@Override
 	public LanguageCode getLanguage() {
-		String tag = getString(LANGUAGE_TAG).toUpperCase();
+		String tag = getString(LANGUAGE_TAG).toUpperCase(Locale.ROOT);
 		try {
 			return LanguageCode.valueOf(tag);
 		} catch (IllegalArgumentException ex) {
@@ -124,7 +126,7 @@ public class MapBasedDataMaster implements DataMaster {
 		@Override
 		@SuppressWarnings("unchecked")
 		public Object put(String key, Object value) {
-			String loweredKey = key.toLowerCase();
+			String loweredKey = key.toLowerCase(Locale.ROOT);
 			Object valueToInsert = value;
 
 			if (value instanceof Map) {
@@ -144,7 +146,7 @@ public class MapBasedDataMaster implements DataMaster {
 
 		@Override
 		public Object get(Object key) {
-			return super.get(((String) key).toLowerCase());
+			return super.get(((String) key).toLowerCase(Locale.ROOT));
 		}
 	}
 }

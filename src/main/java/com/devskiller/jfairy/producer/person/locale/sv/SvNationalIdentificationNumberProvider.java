@@ -78,18 +78,16 @@ public class SvNationalIdentificationNumberProvider implements NationalIdentific
 		return nationalIdentificationNumber + calculateChecksum(nationalIdentificationNumber);
 	}
 
+	@Override
 	public void setIssueDate(LocalDate issueDate) {
 		this.issueDate = issueDate;
 	}
 
+	@Override
 	public void setSex(Person.Sex sex) {
 		this.sex = sex;
 	}
 
-	/**
-	 * @param nationalIdentificationNumber Personal Identity Number
-	 * @return nationalIdentificationNumber validity
-	 */
 	public static boolean isValid(String nationalIdentificationNumber) {
 		int size = nationalIdentificationNumber.length();
 		if (size != NATIONAL_IDENTIFICATION_NUMBER_LENGTH) {

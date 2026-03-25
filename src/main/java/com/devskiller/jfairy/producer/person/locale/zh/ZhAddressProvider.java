@@ -23,6 +23,7 @@ public class ZhAddressProvider extends AbstractAddressProvider {
 			getCity(), getPostalCode());
 	}
 
+	@Override
 	public String getApartmentNumber() {
 		if (baseProducer.trueOrFalse()) {
 			String floor = String.valueOf(baseProducer.randomInt(38));

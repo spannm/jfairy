@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 
 public interface NationalIdentificationNumberProvider extends Supplier<NationalIdentificationNumber> {
 
+	@Override
 	NationalIdentificationNumber get();
 
 	void setIssueDate(LocalDate dateOfBirth);

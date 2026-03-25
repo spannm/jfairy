@@ -6,12 +6,7 @@ import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.DateProducer;
 import com.devskiller.jfairy.producer.person.NationalIdentityCardNumberProvider;
 import com.devskiller.jfairy.producer.util.AlphaNumberSystem;
-
-import static java.lang.String.copyValueOf;
-import static java.lang.String.valueOf;
-import static java.lang.System.arraycopy;
-
-import static com.devskiller.jfairy.producer.util.StringUtils.leftPad;
+import com.devskiller.jfairy.producer.util.StringUtils;
 
 /**
  * Slovak Identity Card Number
@@ -68,7 +63,7 @@ public class SkNationalIdentityCardNumberProvider implements NationalIdentityCar
 
 		id[CHECKSUM_INDEX] = checksum;
 
-		return copyValueOf(id);
+		return String.copyValueOf(id);
 
 	}
 
@@ -93,21 +88,21 @@ public class SkNationalIdentityCardNumberProvider implements NationalIdentityCar
 			checksum += weight * value;
 		}
 
-		return valueOf(checksum % BASE_TEN).charAt(0);
+		return String.valueOf(checksum % BASE_TEN).charAt(0);
 	}
 
 	private void fillDigitsPart(char[] id) {
-		String num = valueOf(baseProducer.randomInt(MAX_DIGITS_PART_VALUE));
-		char[] digits = leftPad(num, DIGITS_PART_SIZE, '0').toCharArray();
-		arraycopy(digits, 0, id, CHECKSUM_INDEX + 1, digits.length);
+		String num = String.valueOf(baseProducer.randomInt(MAX_DIGITS_PART_VALUE));
+		char[] digits = StringUtils.leftPad(num, DIGITS_PART_SIZE, '0').toCharArray();
+		System.arraycopy(digits, 0, id, CHECKSUM_INDEX + 1, digits.length);
 	}
 
 	private void fillLettersPart(int year, char[] id) {
 		int maxPrefix = (year - ISSUING_BEGIN) * LETTER_WEIGHT;
 		int range = baseProducer.randomBetween(maxPrefix, maxPrefix + LETTER_WEIGHT);
 		String prefix = AlphaNumberSystem.convertToString(range, ALPHABET_SIZE);
-		char[] charArray = leftPad(prefix, LETTERS_PART_SIZE, 'A').toCharArray();
-		arraycopy(charArray, 0, id, 0, charArray.length);
+		char[] charArray = StringUtils.leftPad(prefix, LETTERS_PART_SIZE, 'A').toCharArray();
+		System.arraycopy(charArray, 0, id, 0, charArray.length);
 	}
 
 }

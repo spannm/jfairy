@@ -2,6 +2,7 @@ package com.devskiller.jfairy.producer.person;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -190,7 +191,7 @@ public class DefaultPersonProvider implements PersonProvider {
 	@Override
 	public void generateAge() {
 		if (dateOfBirth != null) {
-			age = (int) ChronoUnit.YEARS.between(dateOfBirth, LocalDateTime.now());
+			age = (int) ChronoUnit.YEARS.between(dateOfBirth, LocalDateTime.now(ZoneId.systemDefault()));
 		} else {
 			if (age != null) {
 				return;

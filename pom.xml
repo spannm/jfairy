@@ -9,7 +9,7 @@
 	<name>jFairy</name>
 	<description>Java fake data generator</description>
 	<url>https://github.com/Devskiller/jfairy</url>
-    <inceptionYear>2013</inceptionYear>
+	<inceptionYear>2013</inceptionYear>
 
 	<licenses>
 		<license>
@@ -77,8 +77,6 @@
 		<revision>0.8.3-SNAPSHOT</revision>
 
 		<javaVersion>17</javaVersion>
-		<maven.compiler.source>${javaVersion}</maven.compiler.source>
-		<maven.compiler.target>${javaVersion}</maven.compiler.target>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -105,7 +103,7 @@
 		<dep.plugin.coveralls.version>4.3.0</dep.plugin.coveralls.version>
 		<dep.plugin.deploy.version>3.1.4</dep.plugin.deploy.version>
 		<dep.plugin.enforcer.version>3.6.2</dep.plugin.enforcer.version>
-		<dep.plugin.error-prone.version>2.39.0</dep.plugin.error-prone.version>
+		<dep.plugin.error-prone.version>2.48.0</dep.plugin.error-prone.version>
 		<dep.plugin.flatten.version>1.7.3</dep.plugin.flatten.version>
 		<dep.plugin.gmavenplus.version>4.3.1</dep.plugin.gmavenplus.version>
 		<dep.plugin.gpg.version>3.2.8</dep.plugin.gpg.version>
@@ -152,12 +150,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${dep.slf4j.version}</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${dep.slf4j.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.spockframework</groupId>
 			<artifactId>spock-core</artifactId>
@@ -224,12 +222,17 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${dep.plugin.compiler.version}</version>
 				<configuration>
+					<release>${javaVersion}</release>
 					<fork>true</fork>
+					<showWarnings>true</showWarnings>
 					<compilerArgs>
 						<arg>-XDcompilePolicy=simple</arg>
-						<arg>-XDdev</arg>
-						<arg>-XDshould-stop.ifError=FLOW</arg>
-						<arg>-Xplugin:ErrorProne</arg>
+						<arg>-XDaddTypeAnnotationsToSymbol=true</arg>
+
+						<arg>--should-stop=ifError=FLOW</arg>
+
+						<arg>-Xplugin:ErrorProne -Xep:MissingSummary:WARN -Xep:InvalidBlockTag:WARN</arg>
+
 						<arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
 						<arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED</arg>
 						<arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
@@ -295,7 +298,7 @@
 								org.apache.maven.plugins:maven-clean-plugin,
 								org.apache.maven.plugins:maven-dependency-plugin,
 								org.apache.maven.plugins:maven-install-plugin,
-                                org.apache.maven.plugins:maven-site-plugin
+								org.apache.maven.plugins:maven-site-plugin
 							</unCheckedPluginList>
 						</requirePluginVersions>
 					</rules>
@@ -461,6 +464,32 @@
 
 				<maven.javadoc.skip>true</maven.javadoc.skip>
 			</properties>
+		</profile>
+
+        <!-- profile to fail the build on Error Prone findings
+             mvn clean compile -D check.fail-errorprone=true
+             https://errorprone.info/bugpattern/IncompatibleModifiers -->
+		<profile>
+			<id>errorprone-fatal</id>
+			<activation>
+				<property>
+					<name>check.fail-errorprone</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<configuration>
+							<compilerArgs combine.children="append">
+								<arg>-Werror</arg>
+							</compilerArgs>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 
 		<profile>

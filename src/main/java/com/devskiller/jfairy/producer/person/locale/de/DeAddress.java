@@ -2,9 +2,6 @@ package com.devskiller.jfairy.producer.person.locale.de;
 
 import com.devskiller.jfairy.producer.person.locale.ContinentalAddress;
 
-/**
- * @author Roland Weisleder
- */
 public class DeAddress extends ContinentalAddress {
 
 	public DeAddress(String streetNumber, String street, String apartmentNumber, String city, String postalCode) {

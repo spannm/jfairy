@@ -1,5 +1,7 @@
 package com.devskiller.jfairy.producer.company;
 
+import java.util.Locale;
+
 import com.devskiller.jfairy.data.DataMaster;
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.VATIdentificationNumberProvider;
@@ -70,7 +72,7 @@ public class DefaultCompanyProvider implements CompanyProvider {
 			return;
 		}
 
-		String host = latinize(strip(deleteWhitespace(name.toLowerCase()), ".").replace("/", ""));
+		String host = latinize(strip(deleteWhitespace(name.toLowerCase(Locale.ROOT)), ".").replace("/", ""));
 		int len1 = host.length();
 		host = escapeNonAscii(host).replaceAll("\\\\u", "");
 		int len2 = host.length();

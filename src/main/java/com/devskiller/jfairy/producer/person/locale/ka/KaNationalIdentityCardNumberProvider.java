@@ -1,8 +1,10 @@
 package com.devskiller.jfairy.producer.person.locale.ka;
 
+import java.util.Locale;
 import java.util.function.Supplier;
 
 import com.devskiller.jfairy.producer.BaseProducer;
+import com.devskiller.jfairy.producer.person.Country;
 import com.devskiller.jfairy.producer.person.NationalIdentityCardNumberProvider;
 
 public class KaNationalIdentityCardNumberProvider implements NationalIdentityCardNumberProvider {
@@ -28,13 +30,15 @@ public class KaNationalIdentityCardNumberProvider implements NationalIdentityCar
 
 		private final BaseProducer baseProducer;
 
+		private final Locale primaryLocale = Country.Georgia.getPrimaryLocale();
+
 		NewCardNumberProvider(BaseProducer baseProducer) {
 			this.baseProducer = baseProducer;
 		}
 
 		@Override
 		public String get() {
-			return baseProducer.bothify(NEW_CARD_MASK).toUpperCase();
+			return baseProducer.bothify(NEW_CARD_MASK).toUpperCase(primaryLocale);
 		}
 	}
 

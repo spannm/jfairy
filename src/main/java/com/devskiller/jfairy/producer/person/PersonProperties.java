@@ -7,6 +7,11 @@ import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.company.Company;
 
 /**
+ * Static factory for creating {@link PersonProperty} instances to customize person generation.
+ * <p>
+ * This class provides a fluent interface to define specific attributes like age,
+ * gender, or contact details that should be applied during the person creation process.
+ *
  * @author jkubrynski@gmail.com
  * @since 2013-11-16
  */

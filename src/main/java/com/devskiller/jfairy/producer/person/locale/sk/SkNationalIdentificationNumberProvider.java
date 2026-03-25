@@ -77,18 +77,16 @@ public class SkNationalIdentificationNumberProvider implements NationalIdentific
 		return nationalIdentificationNumber + calculateChecksum(nationalIdentificationNumber);
 	}
 
+	@Override
 	public void setIssueDate(LocalDate issueDate) {
 		this.issueDate = issueDate;
 	}
 
+	@Override
 	public void setSex(Person.Sex sex) {
 		this.sex = sex;
 	}
 
-	/**
-	 * @param nationalIdentificationNumber National Identification Number
-	 * @return nationalIdentificationNumber validity
-	 */
 	public static boolean isValid(String nationalIdentificationNumber) {
 		int size = nationalIdentificationNumber.length();
 		if (size != NATIONAL_IDENTIFICATION_NUMBER_LENGTH) {

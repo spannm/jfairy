@@ -16,21 +16,32 @@ public class NetworkProducer {
 	}
 
 	/**
-	 * Add a simple url generator
-	 * Example: networkProducer.url(baseProducer.trueOrFalse())
+	 * Generates a faked URL based on the current IP address.
+	 * <p>
+	 * The domain name is derived by mapping the digits of the IP address
+	 * to characters starting from 'a'.
 	 *
-	 * @param isHttps is https or not
-	 * @return A faked url.
+	 * @param isHttps specifies whether to use the {@code https} or {@code http} protocol
+	 * @return a formatted URL string, e.g., "https://abcdefghij.com"
 	 */
 	public String url(boolean isHttps) {
-		String mergedIP = ipAddress().replaceAll("\\.", "");
-		char[] domainChars = mergedIP.toCharArray();
-		for (int i = 0; i < domainChars.length; i++) {
-			domainChars[i] = (char) (Character.getNumericValue(domainChars[i]) + 'a');
+		String mergedIp = ipAddress().replace(".", "");
+		StringBuilder domainBuilder = new StringBuilder(mergedIp.length());
+
+		for (int i = 0; i < mergedIp.length(); i++) {
+			char digitChar = mergedIp.charAt(i);
+			// Character.digit is safer and more predictable than getNumericValue
+			int numericValue = Character.digit(digitChar, 10);
+
+			if (numericValue != -1) {
+				domainBuilder.append((char) (numericValue + 'a'));
+			}
 		}
 
-		String domain = String.valueOf(domainChars);
-		String protocol = isHttps ? "https" : "http";
-		return protocol + "://" + domain + ".com";
+		String protocol = "http";
+		if (isHttps) {
+			protocol += "s";
+		}
+		return protocol + "://" + domainBuilder + ".com";
 	}
 }

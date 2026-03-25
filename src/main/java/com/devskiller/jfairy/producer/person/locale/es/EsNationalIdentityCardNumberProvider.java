@@ -1,8 +1,10 @@
 package com.devskiller.jfairy.producer.person.locale.es;
 
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import com.devskiller.jfairy.producer.BaseProducer;
+import com.devskiller.jfairy.producer.person.Country;
 import com.devskiller.jfairy.producer.person.NationalIdentityCardNumberProvider;
 
 /**
@@ -18,6 +20,7 @@ public class EsNationalIdentityCardNumberProvider implements NationalIdentityCar
 
 	private final BaseProducer baseProducer;
 	private final Pattern regexDni;
+	private final Locale primaryLocale = Country.Spain.getPrimaryLocale();
 
 	public EsNationalIdentityCardNumberProvider(BaseProducer baseProducer) {
 		this.baseProducer = baseProducer;
@@ -26,7 +29,7 @@ public class EsNationalIdentityCardNumberProvider implements NationalIdentityCar
 
 	@Override
 	public String get() {
-		return String.format("%s-%s", baseProducer.randomNumeric(8), baseProducer.randomAlphabetic(1).toUpperCase());
+		return String.format("%s-%s", baseProducer.randomNumeric(8), baseProducer.randomAlphabetic(1).toUpperCase(primaryLocale));
 	}
 
 	public boolean isValid(String dni) {

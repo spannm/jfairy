@@ -1,5 +1,7 @@
 package com.devskiller.jfairy.producer.util;
 
+import java.util.List;
+
 import com.devskiller.jfairy.producer.BaseProducer;
 
 /**
@@ -15,7 +17,7 @@ public final class ZhFairyUtil {
 	/**
 	 * Codes of China provinces
 	 */
-	public static final String[] PROV_LIST = {
+	public static final List<String> PROV_LIST = List.of(
 		"11",    // Beijing
 		"12",    // Tianjin
 		"13",    // Hebei
@@ -48,8 +50,8 @@ public final class ZhFairyUtil {
 		"65",    // Xinjiang
 		"71",    // Taiwan
 		"81",    // Hong Kong
-		"82",    // Macau
-	};
+		"82"     // Macau
+	);
 
 	/**
 	 * Max code of city

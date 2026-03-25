@@ -4,11 +4,7 @@ import java.util.Set;
 
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.VATIdentificationNumberProvider;
-
-import static java.lang.String.valueOf;
-import static java.lang.System.arraycopy;
-
-import static com.devskiller.jfairy.producer.util.StringUtils.leftPad;
+import com.devskiller.jfairy.producer.util.StringUtils;
 
 /**
  * American VAT Identification Number (known as Employer Identification Number or EIN in the United States)
@@ -43,13 +39,13 @@ public class EnVATIdentificationNumberProvider implements VATIdentificationNumbe
 
 		fillSerialNumber(ein);
 
-		return valueOf(ein);
+		return String.valueOf(ein);
 	}
 
 	private void fillSerialNumber(char[] ein) {
-		String number = valueOf(baseProducer.randomBetween(1, 9999));
-		char[] digits = leftPad(number, SERIAL_NUMBER_LENGTH, "0").toCharArray();
-		arraycopy(digits, 0, ein, SERIAL_NUMBER_INDEX, digits.length);
+		String number = String.valueOf(baseProducer.randomBetween(1, 9999));
+		char[] digits = StringUtils.leftPad(number, SERIAL_NUMBER_LENGTH, "0").toCharArray();
+		System.arraycopy(digits, 0, ein, SERIAL_NUMBER_INDEX, digits.length);
 	}
 
 	private void fillAreaNumber(char[] ein) {
@@ -57,8 +53,8 @@ public class EnVATIdentificationNumberProvider implements VATIdentificationNumbe
 		do {
 			number = baseProducer.randomBetween(0, 99);
 		} while (EXCLUDED_NUMBERS.contains(number));
-		char[] digits = leftPad(Integer.toString(number), AREA_NUMBER_LENGTH, "0").toCharArray();
-		arraycopy(digits, 0, ein, 0, digits.length);
+		char[] digits = StringUtils.leftPad(Integer.toString(number), AREA_NUMBER_LENGTH, "0").toCharArray();
+		System.arraycopy(digits, 0, ein, 0, digits.length);
 
 	}
 

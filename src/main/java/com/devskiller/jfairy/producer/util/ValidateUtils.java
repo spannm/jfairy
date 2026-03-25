@@ -29,6 +29,7 @@ public final class ValidateUtils {
 	 * @return {@code value}, guaranteed non-null, for convenient inline use
 	 * @throws IllegalArgumentException if {@code value} is {@code null}
 	 */
+	@SuppressWarnings("AnnotateFormatMethod")
 	public static <T> T notNull(@Nullable T value, String message, Object... args) {
 		if (value == null) {
 			throw new IllegalArgumentException(
@@ -46,6 +47,7 @@ public final class ValidateUtils {
 	 * @param args       optional arguments for {@code message}
 	 * @throws IllegalArgumentException if {@code expression} is {@code false}
 	 */
+	@SuppressWarnings("AnnotateFormatMethod")
 	public static void isTrue(boolean expression, String message, Object... args) {
 		if (!expression) {
 			throw new IllegalArgumentException(

@@ -10,12 +10,11 @@ import com.devskiller.jfairy.producer.person.NationalIdentificationNumberPropert
 import com.devskiller.jfairy.producer.person.NationalIdentificationNumberProvider;
 import com.devskiller.jfairy.producer.person.Person;
 
-import static java.lang.String.format;
-
 /**
- * Spanish National Identification Number (known as PESEL or Polish Powszechny Elektroniczny System Ewidencji Ludności)
+ * Polish National Identification Number (known as PESEL - Powszechny Elektroniczny System Ewidencji Ludności)
  * <p>
- * Universal Electronic System for Registration of the Population
+ * Universal Electronic System for Registration of the Population in Poland.
+ * The number consists of 11 digits and includes information about birth date and sex.
  * More info: <a href="http://en.wikipedia.org/wiki/PESEL">PESEL</a>
  */
 public class PlNationalIdentificationNumberProvider implements NationalIdentificationNumberProvider {
@@ -38,19 +37,37 @@ public class PlNationalIdentificationNumberProvider implements NationalIdentific
 	private LocalDate issueDate;
 	private Person.Sex sex;
 
-	public PlNationalIdentificationNumberProvider(DateProducer dateProducer, BaseProducer baseProducer, NationalIdentificationNumberProperties.Property... properties) {
+	/**
+	 * Initializes a new provider for Polish PESEL numbers
+	 * <p>
+	 * @param dateProducer provider for generating dates
+	 * @param baseProducer provider for random numbers and booleans
+	 * @param properties optional properties to constrain the generated number
+	 */
+	public PlNationalIdentificationNumberProvider(DateProducer dateProducer, BaseProducer baseProducer,
+												   NationalIdentificationNumberProperties.Property... properties) {
 		this.dateProducer = dateProducer;
 		this.baseProducer = baseProducer;
 
 		with(properties);
 	}
 
+	/**
+	 * Applies specific properties to the provider
+	 * <p>
+	 * @param properties array of properties like sex or birth date
+	 */
 	public void with(NationalIdentificationNumberProperties.Property[] properties) {
 		for (NationalIdentificationNumberProperties.Property property : properties) {
 			property.apply(this);
 		}
 	}
 
+	/**
+	 * Generates a random Polish National Identification Number
+	 * <p>
+	 * @return a new NationalIdentificationNumber instance containing the PESEL
+	 */
 	@Override
 	public NationalIdentificationNumber get() {
 
@@ -70,23 +87,27 @@ public class PlNationalIdentificationNumberProvider implements NationalIdentific
 		int serialNumber = baseProducer.randomInt(MAX_SERIAL_NUMBER);
 		int sexCode = calculateSexCode(sex);
 
-		String nationalIdentificationNumber = format("%s%02d%02d%03d%d",
+		String nationalIdentificationNumber = String.format("%s%02d%02d%03d%d",
 			DateTimeFormatter.ofPattern("uu").format(issueDate), month, day, serialNumber, sexCode);
 
 		return nationalIdentificationNumber + calculateChecksum(nationalIdentificationNumber);
 	}
 
+	@Override
 	public void setIssueDate(LocalDate issueDate) {
 		this.issueDate = issueDate;
 	}
 
+	@Override
 	public void setSex(Person.Sex sex) {
 		this.sex = sex;
 	}
 
 	/**
-	 * @param nationalIdentificationNumber National Identification Number (PESEL)
-	 * @return nationalIdentificationNumber validity
+	 * Verifies the validity of a given PESEL number based on its length and checksum
+	 * <p>
+	 * @param nationalIdentificationNumber the PESEL string to verify
+	 * @return true if the number is valid, false otherwise
 	 */
 	public static boolean isValid(String nationalIdentificationNumber) {
 		int size = nationalIdentificationNumber.length();
@@ -98,14 +119,12 @@ public class PlNationalIdentificationNumberProvider implements NationalIdentific
 		int checkDigit = calculateChecksum(nationalIdentificationNumber);
 
 		return checkDigit == checksum;
-
 	}
 
 	private int calculateMonth(int month, int year) {
 		return month + PERIOD_WEIGHTS[(year - BEGIN_YEAR) / PERIOD_FACTOR];
 	}
 
-	// This should be tested
 	private int calculateSexCode(Person.Sex sex) {
 		return SEX_FIELDS[baseProducer.randomInt(SEX_FIELDS.length - 1)] + (sex == Person.Sex.MALE ? 1 : 0);
 	}

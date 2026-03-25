@@ -40,19 +40,37 @@ public class CreditCardProvider implements Supplier<CreditCard> {
 		return completeNumber(baseProducer.numerify(builder.toString()));
 	}
 
+	/**
+	 * Completes a credit card number by calculating and appending a checksum digit.
+	 * <p>
+	 * Uses a variation of the Luhn algorithm where every second digit is doubled.
+	 * If doubling results in a number greater than 9, the digits are summed.
+	 *
+	 * @param creditCardNumber the partial credit card number to complete
+	 * @return the full credit card number including the checksum digit
+	 * @throws IllegalArgumentException if the input contains non-digit characters
+	 */
 	private String completeNumber(String creditCardNumber) {
 		int sum = 0;
 		for (int i = 0; i < creditCardNumber.length(); i++) {
-			int n = Character.getNumericValue(creditCardNumber.charAt(i));
+			int n = Character.digit(creditCardNumber.charAt(i), 10);
+
+			if (n == -1) {
+				throw new IllegalArgumentException("Invalid character in credit card number");
+			}
+
 			if (i % 2 == 0) {
 				n *= 2;
 				if (n > 9) {
-					n = (n % 10) + 1;
+					// For n > 9 (e.g., 10-18), digit sum is equivalent to n - 9
+					n -= 9;
 				}
 			}
 			sum += n;
 		}
-		return creditCardNumber + sum * 9 % 10;
+
+		int checksum = (sum * 9) % 10;
+		return creditCardNumber + checksum;
 	}
 
 }
