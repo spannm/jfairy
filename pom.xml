@@ -93,8 +93,8 @@
 		<dep.slf4j.version>2.0.18</dep.slf4j.version>
 		<dep.iban-commons.version>1.8.7</dep.iban-commons.version>
 		<dep.commons-validator.version>1.10.1</dep.commons-validator.version>
-		<dep.spock.version>2.4-groovy-4.0</dep.spock.version>
-		<dep.groovy.version>4.0.31</dep.groovy.version>
+		<dep.spock.version>2.4-groovy-5.0</dep.spock.version>
+		<dep.groovy.version>5.0.6</dep.groovy.version>
 		<dep.byte-buddy.version>1.18.8</dep.byte-buddy.version>
 		<dep.objenesis.version>3.5</dep.objenesis.version>
 		<dep.junit-jupiter.version>5.14.3</dep.junit-jupiter.version>
@@ -279,6 +279,7 @@
 				<artifactId>gmavenplus-plugin</artifactId>
 				<version>${dep.plugin.gmavenplus.version}</version>
 				<configuration>
+                    <targetBytecode>${javaVersion}</targetBytecode>
 					<testSources>
 						<testSource>
 							<directory>${project.basedir}/src/test/groovy</directory>
